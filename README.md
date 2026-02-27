@@ -3,6 +3,68 @@
 #STIVEN ESNEIDER PARDO GUTIERREZ, GRUPO 2
 
 Evidencia de cuenta figma creada correctamente 
+feature/-descomposicion-de-las-tareas-asociadas
+![alt text](image.png)
+
+Descomposición de Tareas - ECI Payment Integration Hub
+Épica: Integración Unificada de Proveedores de Pago
+Descripción de la Épica:
+Como administrador del sistema ECI Payment Hub, necesito que el sistema pueda integrar múltiples proveedores de pago (PayU, ePayco, Stripe, Banco PSE) con diferentes APIs y formatos, unificándolos bajo una interfaz común para garantizar la flexibilidad y mantenibilidad del sistema.
+
+Historia de Usuario:
+Tareas de Desarrollo:
+Tarea 1: Crear Interfaz Unificada de Payment Processor
+
+    Tipo: Desarrollo
+    Estimación: 2 Story Points
+    Descripción: Definir la interfaz común que todos los adapters de proveedores deben implementar
+    Criterios de Finalización:
+    Interfaz PaymentProcessor creada con método processPayment()
+    Clases PaymentRequest y PaymentResponse definidas con formato institucional
+    Documentación de la interfaz completada
+
+Tarea 2: Implementar Adapters para cada Proveedor
+    Tipo: Desarrollo
+    Estimación: 8 Story Points
+    Descripción: Crear los adapters específicos para PayU, ePayco, Stripe y Banco PSE
+    Criterios de Finalización:
+    PayUAdapter implementado y probado
+    ePaycoAdapter implementado y probado
+    StripeAdapter implementado y probado
+    BancoPSEAdapter implementado y probado
+    Cada adapter convierte correctamente entre formatos
+
+Tarea 3: Desarrollar Factory para Selección de Proveedores
+    Tipo: Desarrollo
+    Estimación: 5 Story Points
+    Descripción: Implementar el patrón Abstract Factory para crear el proveedor correcto según reglas de negocio
+    Criterios de Finalización:
+    PaymentProcessorFactory abstracta creada
+    ECIPaymentProcessorFactory implementada con reglas de negocio
+    Validación: USD → Stripe, PSE → Banco PSE
+    Pruebas unitarias de la factory completadas
+
+Tarea 4: Implementar Unificación de Respuestas
+    Tipo: Desarrollo
+    Estimación: 3 Story Points
+    Descripción: Asegurar que todas las respuestas se conviertan al formato institucional estándar
+    Criterios de Finalización:
+    Método de conversión a formato unificado implementado
+    Manejo de campos adicionales (ignorar)
+    Manejo de errores (retornar "PENDIENTE")
+    Validación de respuesta unificada funcionando
+    Tarea 5: Pruebas de Integración y Validación
+    
+Tipo: Testing
+    Estimación: 4 Story Points
+    Descripción: Crear pruebas que validen la integración completa de todos los componentes
+    Criterios de Finalización:
+    Pruebas de integración para cada proveedor
+    Pruebas de cambio dinámico de proveedores
+    Pruebas de manejo de errores y timeouts
+    Cobertura de código mínima del 85%
+    Total Estimado: 22 Story Points
+=======
 ![alt text](image.png) 
 
 1. Realice el diagrama de contexto con las generalidades de su sistema.
@@ -110,94 +172,62 @@ respectiva historia de usuario. Garantiza que al menos un requerimiento funciona
     El sistema continúa funcionando sin modificar el código existente
 
 
-5. Especifique los 2 requerimientos funcionales seleccionados en el punto anterior, siguiendo la plantilla de Análisis de requerimientos.
-Nota: No es necesario que especifique ni la sección de prototipo, ni las
-abreviaturas e historial de revisión.
 
+Descomposición de Tareas - ECI Payment Integration Hub
+Épica: Integración Unificada de Proveedores de Pago
+Descripción de la Épica:
+Como administrador del sistema ECI Payment Hub, necesito que el sistema pueda integrar múltiples proveedores de pago (PayU, ePayco, Stripe, Banco PSE) con diferentes APIs y formatos, unificándolos bajo una interfaz común para garantizar la flexibilidad y mantenibilidad del sistema.
 
-    Análisis de Requerimientos - ECI Payment Integration Hub
-    RF-001: Procesar Pago Institucional
-    Identificación del Requerimiento
-    ID: RF-001
-    Nombre: Procesar Pago Institucional
-    Prioridad: Alta
-    Tipo: Funcional
-    Descripción
-    El sistema debe permitir a los usuarios institucionales realizar pagos en línea para servicios académicos (bootcamps, certificados, eventos, cursos) validando datos institucionales y procesando el pago a través del proveedor correspondiente según las reglas de negocio establecidas.
+Historia de Usuario:
+Tareas de Desarrollo:
+Tarea 1: Crear Interfaz Unificada de Payment Processor
 
-    Actores
-    Actor Principal: Estudiante/Usuario Institucional
-    Actores Secundarios: Sistema de Proveedores de Pago, Base de Datos MongoDB Atlas
-    Precondiciones
-    El usuario debe tener un correo institucional válido (@escuelaing.edu.co o @mail.escuelaing.edu.co)
-    El monto del pago debe ser mayor a $5,000 COP
-    Los proveedores de pago deben estar disponibles
+    Tipo: Desarrollo
+    Estimación: 2 Story Points
+    Descripción: Definir la interfaz común que todos los adapters de proveedores deben implementar
+    Criterios de Finalización:
+    Interfaz PaymentProcessor creada con método processPayment()
+    Clases PaymentRequest y PaymentResponse definidas con formato institucional
+    Documentación de la interfaz completada
 
-    Postcondiciones
-    El pago es procesado exitosamente
-    Se genera un registro en la base de datos
-    Se retorna una respuesta en formato unificado institucional
+Tarea 2: Implementar Adapters para cada Proveedor
+    Tipo: Desarrollo
+    Estimación: 8 Story Points
+    Descripción: Crear los adapters específicos para PayU, ePayco, Stripe y Banco PSE
+    Criterios de Finalización:
+    PayUAdapter implementado y probado
+    ePaycoAdapter implementado y probado
+    StripeAdapter implementado y probado
+    BancoPSEAdapter implementado y probado
+    Cada adapter convierte correctamente entre formatos
 
-    Flujo Principal
-    El usuario ingresa información de pago (nombre, documento, correo, concepto, monto, moneda, medio de pago)
-    El sistema valida que el correo termine en dominio institucional
-    El sistema valida que el monto sea mayor a $5,000 COP
-    El sistema selecciona automáticamente el proveedor usando Abstract Factory
-    El sistema adapta la solicitud al formato del proveedor usando Adapter
-    Se envía la solicitud al proveedor de pago
-    El sistema unifica la respuesta al formato institucional
-    Se almacena el registro del pago en MongoDB Atlas
+Tarea 3: Desarrollar Factory para Selección de Proveedores
+    Tipo: Desarrollo
+    Estimación: 5 Story Points
+    Descripción: Implementar el patrón Abstract Factory para crear el proveedor correcto según reglas de negocio
+    Criterios de Finalización:
+    PaymentProcessorFactory abstracta creada
+    ECIPaymentProcessorFactory implementada con reglas de negocio
+    Validación: USD → Stripe, PSE → Banco PSE
+    Pruebas unitarias de la factory completadas
 
-    Flujos Alternativos
-    FA-001: Si el correo no es institucional, mostrar error de validación
-    FA-002: Si el monto es menor a $5,000 COP, rechazar transacción
-    FA-003: Si el proveedor falla, retornar estado "PENDIENTE"
-
-    Excepciones
-    E-001: Error de conectividad con proveedor de pago
-    E-002: Error de validación de datos de entrada
-    E-003: Timeout en respuesta del proveedor (>3 segundos)
-    RF-002: Gestionar Múltiples Proveedores de Pago
-
-
-    Identificación del Requerimiento
-    ID: RF-002
-    Nombre: Gestionar Múltiples Proveedores de Pago
-    Prioridad: Alta
-    Tipo: Funcional
-    Descripción
-    El sistema debe integrar múltiples proveedores de pago (PayU, ePayco, Stripe, Banco PSE) con APIs diferentes, adaptándolos a una interfaz unificada que permita intercambiar proveedores sin modificar el código principal del sistema.
-
-    Actores
-    Actor Principal: Sistema ECI Payment Hub
-    Actores Secundarios: PayU API, ePayco API, Stripe API, Banco PSE API
-
-    Precondiciones
-    Los proveedores de pago deben tener APIs activas
-    Las credenciales de cada proveedor deben estar configuradas
-    Las reglas de negocio deben estar definidas (USD→Stripe, PSE→Banco PSE)
-
-    Postcondiciones
-    La solicitud es procesada por el proveedor correcto
-    La respuesta es unificada al formato institucional
-    El sistema mantiene independencia de implementaciones específicas
-
-    Flujo Principal
-    El sistema recibe una solicitud de pago procesada
-    El sistema determina el proveedor usando las reglas de negocio (Abstract Factory)
-    Se crea el adapter correspondiente para el proveedor seleccionado
-    El adapter convierte la solicitud al formato específico del proveedor
-    Se envía la solicitud al API del proveedor
-    El adapter recibe la respuesta del proveedor
-    El adapter convierte la respuesta al formato unificado institucional
-    Se retorna la respuesta unificada
-
-    Flujos Alternativos
-    FA-001: Si es moneda USD, usar obligatoriamente Stripe
-    FA-002: Si el medio de pago es PSE, usar obligatoriamente Banco PSE
-    FA-003: Para otros casos, seleccionar entre PayU o ePayco
+Tarea 4: Implementar Unificación de Respuestas
+    Tipo: Desarrollo
+    Estimación: 3 Story Points
+    Descripción: Asegurar que todas las respuestas se conviertan al formato institucional estándar
+    Criterios de Finalización:
+    Método de conversión a formato unificado implementado
+    Manejo de campos adicionales (ignorar)
+    Manejo de errores (retornar "PENDIENTE")
+    Validación de respuesta unificada funcionando
+    Tarea 5: Pruebas de Integración y Validación
     
-    Excepciones
-    E-001: Proveedor no disponible temporalmente
-    E-002: Error en conversión de formatos
-    E-003: Respuesta del proveedor en formato no esperado
+Tipo: Testing
+    Estimación: 4 Story Points
+    Descripción: Crear pruebas que validen la integración completa de todos los componentes
+    Criterios de Finalización:
+    Pruebas de integración para cada proveedor
+    Pruebas de cambio dinámico de proveedores
+    Pruebas de manejo de errores y timeouts
+    Cobertura de código mínima del 85%
+    
