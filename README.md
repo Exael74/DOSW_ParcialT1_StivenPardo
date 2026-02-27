@@ -169,4 +169,3 @@ Tipo: Testing
     Pruebas de cambio dinámico de proveedores
     Pruebas de manejo de errores y timeouts
     Cobertura de código mínima del 85%
-    
