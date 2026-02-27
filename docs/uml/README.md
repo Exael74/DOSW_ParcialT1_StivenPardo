@@ -39,3 +39,22 @@ El diagrama de clases diseñado en **PlantUML** cumple a cabalidad con los reque
 
 5. **Persistencia Desacoplada (Para MongoDB/AWS):**
    La separación de la capa *PERSISTENCE* a través de la interfaz `PaymentRepository` permite que el dominio desconozca los detalles de conexión. Esto facilita que, bajo la misma abstracción, se inyecte la implementación que apuntará al cluster de AWS MongoDB Atlas solicitado en el caso de estudio.
+
+---
+
+## Principios SOLID Aplicados
+
+1. **S - Single Responsibility Principle (Principio de Responsabilidad Única):**
+   Cada componente tiene un único propósito. Por ejemplo, `BusinessValidator` se encarga exclusivamente de las reglas de negocio (monto y correo) abstrayendo a `PaymentService` de este trabajo; `PaymentRepository` maneja solo la persistencia, y cada `Adapter` sólo traduce la respuesta de su API respectiva.
+
+2. **O - Open/Closed Principle (Principio Abierto/Cerrado):**
+   El sistema está **abierto a la extensión pero cerrado a la modificación**. Si mañana ECI añade un nuevo proveedor (ej. PayPal), solo se necesita crear su respectivo `PaypalProvider`, y su respectivo `PaypalAdapter`. La clase core `PaymentService` **no cambiará nunca**.
+
+3. **L - Liskov Substitution Principle (Principio de Sustitución de Liskov):**
+   Cualquier clase en el sistema que requiera un proveedor, funcionará perfectamente con la superclase `PaymentProvider` recibiéndola desde `PaymentProviderFactory`, de modo que usar una instancia particular (ej. `StripeProvider`) no rompe la lógica de la aplicación en ningún momento.
+
+4. **I - Interface Segregation Principle (Principio de Segregación de Interfaces):**
+   Las interfaces están muy especificadas para que los clientes no dependan de los métodos que no usan (por ejemplo, las promesas de los adaptadores y los repositorios). El `ProviderAdapter` define qué hacer en el éxito (`toInstitutional`) o el fracaso (`onFailure`), separando esas responsabilidades.
+
+5. **D - Dependency Inversion Principle (Principio de Inversión de Dependencias):**
+   `PaymentService` (alto nivel) no depende nunca de `StripeAdapter` o `BancoPseAdapter` (bajo nivel). Depende de la interfaz generalizada del `ProviderAdapter` a través de inyección sobre su `AdapterRegistry`. Esto evita el alto acoplamiento y cumple el requerimiento *"el sistema interno de la Escuela NO puede depender de ninguna implementación específica"*.
